@@ -1,14 +1,23 @@
 {
     "name": "eriocl/gendiff",
     "license": "MIT",
-    "bin": ["bin/genfiff"],
     "authors": [
         {
             "name": "eriocl",
             "email": "eriocl@ya.ru"
         }
     ],
+    "scripts": {
+        "phpcs": "phpcs"
+    },
+    "bin": ["bin/genfiff"],
+    "autoload": {
+        "files": [
+            "src/differ.php"
+        ]
+    },
     "require": {
-        "docopt/docopt": "^1.0"
+        "docopt/docopt": "^1.0",
+        "squizlabs/php_codesniffer": "^3.5"
     }
 }

@@ -1,19 +1,32 @@
-#! usr/bin/env php
+#!/usr/bin/env php
+
 <?php
 
 require_once('autoload.php');
 
-$doc = <<<DOC
-gendiff -h
+use function Gendiff\src\differ\getData;
+use function Gendiff\src\differ\gendiff;
 
+$doc = <<<'DOC'
 Generate diff
 
 Usage:
   gendiff (-h|--help)
   gendiff (-v|--version)
+  gendiff [--format <fmt>] <firstFile> <secondFile>
 
 Options:
-  -h --help     Show this screen.
-  -v --version  Show version.
+  -h --help             Show this screen.
+  -v --version          Show version.
+  --format <fmt>        Report format [default: stylish]
 
 DOC;
+$args = Docopt::handle($doc, array('version' => '0.1'));
+
+//['<firstFile>' => $pathToFirstFile, '<secondFile>' => $pathToSecondFile, '--format' => $format] = $args;
+
+
+['<firstFile>' => $pathToFirstFile, '<secondFile>' => $pathToSecondFile, '--format' => $format] = $args;
+$data = getData($pathToFirstFile, $pathToSecondFile);
+$result = gendiff($data);
+echo "{\n" . $result . "}\n";

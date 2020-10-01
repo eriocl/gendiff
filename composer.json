@@ -10,7 +10,7 @@
     "scripts": {
         "phpcs": "phpcs"
     },
-    "bin": ["bin/genfiff"],
+    "bin": ["bin/gendiff"],
     "autoload": {
         "files": [
             "src/differ.php"

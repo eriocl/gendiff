@@ -1,0 +1,14 @@
+{
+    "name": "eriocl/gendiff",
+    "license": "MIT",
+    "bin": ["bin/genfiff"],
+    "authors": [
+        {
+            "name": "eriocl",
+            "email": "eriocl@ya.ru"
+        }
+    ],
+    "require": {
+        "docopt/docopt": "^1.0"
+    }
+}

@@ -9,7 +9,7 @@ use function Gendiff\Src\Differ\gendiff;
 
 class DifferTest extends TestCase
 {
-    public function testGendiff()
+    public function testGendiff(): void
     {
         $file1 = 'file1.json';
         $file2 = 'file2.json';

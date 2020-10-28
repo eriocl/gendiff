@@ -8,7 +8,8 @@
         }
     ],
     "scripts": {
-        "phpcs": "phpcs"
+        "phpcs": "phpcs",
+        "test": "phpunit tests"
     },
     "bin": ["bin/gendiff"],
     "autoload": {

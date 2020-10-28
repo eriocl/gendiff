@@ -13,8 +13,8 @@ class DifferTest extends TestCase
     {
         $file1 = 'file1.json';
         $file2 = 'file2.json';
-        $path1 = implode(DIRECTORY_SEPARATOR,[__DIR__,'fixtures',$file1]);
-        $path2 = implode(DIRECTORY_SEPARATOR,[__DIR__,'fixtures',$file2]);
+        $path1 = implode(DIRECTORY_SEPARATOR, [__DIR__,'fixtures',$file1]);
+        $path2 = implode(DIRECTORY_SEPARATOR, [__DIR__,'fixtures',$file2]);
         $data = getData($path1, $path2);
         $actual = gendiff($data);
         $expected = "- follow: false\n  host: hexlet.io\n- proxy: 123.234.53.22" .

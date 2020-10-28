@@ -33,25 +33,22 @@ function gendiff($data)
     $data2 = convertValuesToString($data2);
     $keysData1 = array_keys($data1);
     $keysData2 = array_keys($data2);
-    $deletedData = array_reduce($keysData1, function ($acc, $key) use ($data1, $data2) {
-        if (!array_key_exists($key, $data2)) {
+    $keys= array_unique(array_merge($keysData1, $keysData2));
+    sort($keys);
+    return array_reduce($keys, function ($acc, $key) use ($data1, $data2) {
+        if (array_key_exists($key, $data1) && !array_key_exists($key, $data2)) {
             $acc .= "- {$key}: {$data1[$key]}\n";
         }
-        return $acc;
-    }, '');
-    $addedData = array_reduce($keysData2, function ($acc, $key) use ($data1, $data2) {
-        if (!array_key_exists($key, $data1)) {
+        if (!array_key_exists($key, $data1) && array_key_exists($key, $data2)) {
             $acc .= "+ {$key}: {$data2[$key]}\n";
         }
-        return $acc;
-    }, '');
-    $changedData = array_reduce($keysData2, function ($acc, $key) use ($data1, $data2) {
-        if (array_key_exists($key, $data1)) {
-            $acc .= $data1[$key] === $data2[$key]
-                ? "  {$key}: {$data2[$key]}\n"
-                : "- {$key}: {$data1[$key]}\n+ {$key}: {$data2[$key]}\n";
+        if (array_key_exists($key, $data1) && array_key_exists($key, $data2)) {
+            if ($data1[$key] === $data2[$key]) {
+                $acc .= "  {$key}: {$data2[$key]}\n";
+            } else {
+                $acc .= "- {$key}: {$data1[$key]}\n+ {$key}: {$data2[$key]}\n";
+            }
         }
         return $acc;
     }, '');
-    return $deletedData . $addedData . $changedData;
 }

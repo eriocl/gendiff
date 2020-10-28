@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendiff\src\differ;
+namespace Gendiff\Src\Differ;
 
 function getData($pathToFile1, $pathToFile2)
 {
@@ -33,7 +33,7 @@ function gendiff($data)
     $data2 = convertValuesToString($data2);
     $keysData1 = array_keys($data1);
     $keysData2 = array_keys($data2);
-    $keys= array_unique(array_merge($keysData1, $keysData2));
+    $keys = array_unique(array_merge($keysData1, $keysData2));
     sort($keys);
     return array_reduce($keys, function ($acc, $key) use ($data1, $data2) {
         if (array_key_exists($key, $data1) && !array_key_exists($key, $data2)) {

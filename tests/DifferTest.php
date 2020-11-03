@@ -9,16 +9,29 @@ use function Gendiff\Src\Differ\gendiff;
 
 class DifferTest extends TestCase
 {
-    public function testGendiff(): void
+    /**
+     * @dataProvider additionProvider
+     */
+
+    public function testGendiff($fileBefore, $fileAfter): void
     {
-        $file1 = 'file1.json';
-        $file2 = 'file2.json';
-        $path1 = implode(DIRECTORY_SEPARATOR, [__DIR__,'fixtures',$file1]);
-        $path2 = implode(DIRECTORY_SEPARATOR, [__DIR__,'fixtures',$file2]);
-        $data = getData($path1, $path2);
-        $actual = gendiff($data);
-        $expected = "- follow: false\n  host: hexlet.io\n- proxy: 123.234.53.22" .
-        "\n- timeout: 50\n+ timeout: 20\n+ verbose: true\n";
+        $pathBefore = $this->getFixturePath($fileBefore);
+        $pathAfter = $this->getFixturePath($fileAfter);
+        $actual = gendiff($pathBefore, $pathAfter);
+        $expected = file_get_contents(implode(DIRECTORY_SEPARATOR, [__DIR__,'fixtures','result']));
         $this->assertEquals($expected, $actual);
+    }
+
+    public function getFixturePath($fixtureName)
+    {
+        return implode(DIRECTORY_SEPARATOR, [__DIR__,'fixtures',$fixtureName]);
+    }
+
+    public function additionProvider()
+    {
+        return [
+            ['before.json', 'after.json'],
+            ['before.yaml', 'after.yaml']
+        ];
     }
 }

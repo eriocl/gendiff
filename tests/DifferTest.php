@@ -4,7 +4,6 @@ namespace Gendiff\Tests\DifferTest;
 
 use PHPUnit\Framework\TestCase;
 
-use function Gendiff\Src\Differ\getData;
 use function Gendiff\Src\Differ\gendiff;
 
 class DifferTest extends TestCase
@@ -13,12 +12,12 @@ class DifferTest extends TestCase
      * @dataProvider additionProvider
      */
 
-    public function testGendiff($fileBefore, $fileAfter): void
+    public function testGendiff($type, $format): void
     {
-        $pathBefore = $this->getFixturePath($fileBefore);
-        $pathAfter = $this->getFixturePath($fileAfter);
-        $actual = gendiff($pathBefore, $pathAfter);
-        $expected = file_get_contents(implode(DIRECTORY_SEPARATOR, [__DIR__,'fixtures','result']));
+        $pathBefore = $this->getFixturePath("before.{$type}");
+        $pathAfter = $this->getFixturePath("after.{$type}");
+        $actual = gendiff($pathBefore, $pathAfter, $format);
+        $expected = file_get_contents(implode(DIRECTORY_SEPARATOR, [__DIR__,'fixtures',"{$format}Format"]));
         $this->assertEquals($expected, $actual);
     }
 
@@ -30,8 +29,12 @@ class DifferTest extends TestCase
     public function additionProvider()
     {
         return [
-            ['before.json', 'after.json'],
-            ['before.yaml', 'after.yaml']
+            ['json', 'pretty'],
+            ['json', 'plain'],
+            ['json', 'json'],
+            ['yaml', 'pretty'],
+            ['yaml', 'plain'],
+            ['yaml', 'json']
         ];
     }
 }

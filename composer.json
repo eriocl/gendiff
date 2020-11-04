@@ -15,7 +15,10 @@
     "autoload": {
         "files": [
             "src/Differ.php",
-            "src/Parsers.php"
+            "src/Parsers.php",
+            "src/formatters/jsonFormat.php",
+            "src/formatters/plainFormat.php",
+            "src/formatters/prettyFormat.php"
         ]
     },
     "require": {

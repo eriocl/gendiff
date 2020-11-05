@@ -16,12 +16,7 @@ function gendiff($path1, $path2, $format = 'pretty')
     $dataBefore = parse($contentBefore, $fileBeforeFormat);
     $dataAfter = parse($contentAfter, $fileAfterFormat);
     $diffTree = getDiffTree($dataBefore, $dataAfter);
-    $a = getFormatedDiff($diffTree, $format);
-    print_r("\n");
-    print_r($a);
-    return $a;
-
-
+    return getFormatedDiff($diffTree, $format);
 }
 
 function getDiffTree($dataBefore, $dataAfter)
@@ -32,21 +27,31 @@ function getDiffTree($dataBefore, $dataAfter)
     sort($commonKeys);
     return array_map(function ($key) use ($dataBefore, $dataAfter) {
         if (!array_key_exists($key, $dataBefore)) {
-            return ['key' => $key, 'status' => 'added', 'value' => $dataAfter[$key]];
+            return ['key' => $key,
+                    'status' => 'added',
+                    'value' => $dataAfter[$key]];
         }
         if (!array_key_exists($key, $dataAfter)) {
-            return ['key' => $key, 'status' => 'deleted', 'value' => $dataBefore[$key]];
+            return ['key' => $key,
+                    'status' => 'deleted',
+                    'value' => $dataBefore[$key]];
         }
         if ($dataBefore[$key] === $dataAfter[$key]) {
-            return ['key' => $key, 'status' => 'unchanged', 'value' => $dataBefore[$key]];
+            return ['key' => $key,
+                    'status' => 'unchanged',
+                    'value' => $dataBefore[$key]];
         }
         if (is_array($dataBefore[$key]) && is_array($dataAfter[$key])) {
-            return ['key' => $key, 'status' => 'nested', 'children' => getDiffTree($dataBefore[$key], $dataAfter[$key])];
+            return ['key' => $key,
+                    'status' => 'nested',
+                    'children' => getDiffTree($dataBefore[$key], $dataAfter[$key])];
         } else {
-            return ['key' => $key, 'status' => 'changed', 'valueBefore' => $dataBefore[$key], 'valueAfter' => $dataAfter[$key]];
+            return ['key' => $key,
+                    'status' => 'changed',
+                    'valueBefore' => $dataBefore[$key],
+                    'valueAfter' => $dataAfter[$key]];
         }
     }, $commonKeys);
-
 }
 
 function getFormatedDiff($diffTree, $format)
@@ -59,6 +64,6 @@ function getFormatedDiff($diffTree, $format)
         case 'plain':
             return makePlain($diffTree);
         default:
-            throw new \Exception ("{$format} is unsupported format");
+            throw new \Exception("{$format} is unsupported format");
     }
 }

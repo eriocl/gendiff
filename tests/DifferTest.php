@@ -6,7 +6,6 @@ use PHPUnit\Framework\TestCase;
 
 use function Gendiff\src\Differ\gendiff;
 
-
 class DifferTest extends TestCase
 {
     /**
@@ -29,7 +28,11 @@ class DifferTest extends TestCase
 
     public function additionProvider()
     {
-        return [['json', 'json']];
+        return [
+            ['json', 'json'],
+            ['yaml', 'json'],
+            ['json', 'pretty']
+            ];
         /*return [
             ['json', 'pretty'],
             ['json', 'plain'],

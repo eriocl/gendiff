@@ -33,13 +33,5 @@ class DifferTest extends TestCase
             ['yaml', 'plain'],
             ['json', 'json']
             ];
-        /*return [
-            ['json', 'pretty'],
-            ['json', 'plain'],
-            ['json', 'json'],
-            ['yaml', 'pretty'],
-            ['yaml', 'plain'],
-            ['yaml', 'json']
-        ];*/
     }
 }

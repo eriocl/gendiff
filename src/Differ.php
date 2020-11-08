@@ -3,11 +3,11 @@
 namespace Gendiff\Src\Differ;
 
 use function Gendiff\Src\Parsers\parse;
-use function Gendiff\src\formatters\makeJson;
-use function Gendiff\src\formatters\plain\makePlain;
-use function Gendiff\src\formatters\pretty\makePretty;
+use function Gendiff\Src\Formatters\Json\makeJson;
+use function Gendiff\Src\Formatters\Plain\makePlain;
+use function Gendiff\Src\Formatters\Pretty\makePretty;
 
-function gendiff($path1, $path2, $format = 'pretty')
+function gendiff($path1, $path2, $format)
 {
     $fileBeforeFormat = pathinfo($path1, PATHINFO_EXTENSION);
     $fileAfterFormat = pathinfo($path2, PATHINFO_EXTENSION);

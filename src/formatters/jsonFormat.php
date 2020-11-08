@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendiff\src\formatters;
+namespace Gendiff\Src\Formatters\Json;
 
 function makeJson($diffTree)
 {

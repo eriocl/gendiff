@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendiff\src\formatters\pretty;
+namespace Gendiff\Src\Formatters\Pretty;
 
 function makePretty($diffTree, $depth = 0)
 {
@@ -51,6 +51,6 @@ function convertValueToPrettyString($value, $key, $depth)
             $tab = str_repeat('    ', $depth + 1);
             return  "{$tab}" . convertValueToPrettyString($value[$key], $key, $depth + 1);
         }, $keys);
-        return "{$key}: {\n" . implode("\n", $formattedValue) . "\n{$tab}" . '}';
+        return "{$key}: {\n" . implode("\n", $formattedValue) . "\n{$tab}}";
     }
 }

@@ -8,15 +8,15 @@ function makePretty($diffTree, $depth = 0)
     $formatedTree = array_map(function ($node) use ($tab, $depth) {
         $status = $node['status'];
         $key = $node['key'];
+        if ($status !== 'nested' && $status !== 'changed') {
+            $value = convertValueToPrettyString($node['value'], $key, $depth + 1);
+        }
         switch ($status) {
             case 'added':
-                $value = convertValueToPrettyString($node['value'], $key, $depth + 1);
                 return "{$tab}  + {$value}";
             case 'deleted':
-                $value = convertValueToPrettyString($node['value'], $key, $depth + 1);
                 return "{$tab}  - {$value}";
             case 'unchanged':
-                $value = convertValueToPrettyString($node['value'], $key, $depth + 1);
                 return "{$tab}    {$value}";
             case 'changed':
                 $valueBefore = convertValueToPrettyString($node['valueBefore'], $key, $depth + 1);
@@ -51,6 +51,6 @@ function convertValueToPrettyString($value, $key, $depth)
             $tab = str_repeat('    ', $depth + 1);
             return  "{$tab}" . convertValueToPrettyString($value[$key], $key, $depth + 1);
         }, $keys);
-        return "{$key}: " . "{\n" . implode("\n", $formattedValue) . "\n" . "{$tab}" . '}';
+        return "{$key}: {\n" . implode("\n", $formattedValue) . "\n{$tab}" . '}';
     }
 }

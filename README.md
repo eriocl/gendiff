@@ -35,10 +35,10 @@ Options:
 Example:      
 
     Pretty format: 
-    https://asciinema.org/a/vGb2fkDmT5XtrdCVcJb5lGETB
+https://asciinema.org/a/vGb2fkDmT5XtrdCVcJb5lGETB
 
     Plain format:
-    https://asciinema.org/a/DZSBocPPZjggMuE8XO6CnU9FH
+https://asciinema.org/a/DZSBocPPZjggMuE8XO6CnU9FH
     
     Json format:
-    https://asciinema.org/a/GzNdBcPYSDP5Twm1OXcwsfV6e
+https://asciinema.org/a/GzNdBcPYSDP5Twm1OXcwsfV6e

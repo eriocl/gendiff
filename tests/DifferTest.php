@@ -29,9 +29,9 @@ class DifferTest extends TestCase
     public function additionProvider()
     {
         return [
-            ['json', 'json'],
-            ['yaml', 'json'],
-            ['json', 'pretty']
+            ['json', 'pretty'],
+            ['yaml', 'plain'],
+            ['json', 'json']
             ];
         /*return [
             ['json', 'pretty'],

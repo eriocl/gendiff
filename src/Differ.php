@@ -4,8 +4,8 @@ namespace Gendiff\Src\Differ;
 
 use function Gendiff\Src\Parsers\parse;
 use function Gendiff\src\formatters\makeJson;
-use function Gendiff\src\formatters\makePlain;
-use function Gendiff\src\formatters\makePretty;
+use function Gendiff\src\formatters\plain\makePlain;
+use function Gendiff\src\formatters\pretty\makePretty;
 
 function gendiff($path1, $path2, $format = 'pretty')
 {

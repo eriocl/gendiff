@@ -1,8 +1,8 @@
 <?php
 
-namespace Gendiff\src\formatters;
+namespace Gendiff\src\formatters\pretty;
 
-function makePretty($difftree, $depth = 0)
+function makePretty($diffTree, $depth = 0)
 {
     $tab = str_repeat('    ', $depth);
     $formatedTree = array_map(function ($node) use ($tab, $depth) {
@@ -28,7 +28,7 @@ function makePretty($difftree, $depth = 0)
             default:
                 throw new \Exception("Unsupported <{$status}> status in diffTree");
         }
-    }, $difftree);
+    }, $diffTree);
     if ($depth === 0) {
         return "{\n" . implode("\n", $formatedTree) . "\n}\n";
     } else {

@@ -5,19 +5,16 @@ namespace Gendiff\Src\Formatters\Pretty;
 function makePretty($diffTree, $depth = 0)
 {
     $tab = str_repeat('    ', $depth);
-    $formatedTree = array_map(function ($node) use ($tab, $depth) {
+    $statusOperators = ['deleted' => '-', 'unchanged' => ' ', 'added' => '+'];
+    $formatedTree = array_map(function ($node) use ($tab, $depth, $statusOperators) {
         $status = $node['status'];
         $key = $node['key'];
-        if ($status !== 'nested' && $status !== 'changed') {
-            $value = convertValueToPrettyString($node['value'], $key, $depth + 1);
-        }
         switch ($status) {
-            case 'added':
-                return "{$tab}  + {$value}";
             case 'deleted':
-                return "{$tab}  - {$value}";
             case 'unchanged':
-                return "{$tab}    {$value}";
+            case 'added':
+                $value = convertValueToPrettyString($node['value'], $key, $depth + 1);
+                return "{$tab}  {$statusOperators[$status]} {$value}";
             case 'changed':
                 $valueBefore = convertValueToPrettyString($node['valueBefore'], $key, $depth + 1);
                 $valueAfter = convertValueToPrettyString($node['valueAfter'], $key, $depth + 1);

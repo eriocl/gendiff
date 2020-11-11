@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendiff\src\formatters\plain;
+namespace Gendiff\Src\Formatters\Plain;
 
 function makePlain($diffTree, $path = [], $result = '')
 {
@@ -14,25 +14,21 @@ function makePlain($diffTree, $path = [], $result = '')
         switch ($status) {
             case 'added':
                 $value = convertValueToPlainString($node['value']);
-                $acc .= "Property '{$path}' was added with value: {$value}\n";
-                break;
+                return $acc . "Property '{$path}' was added with value: {$value}\n";
             case 'deleted':
-                $acc .= "Property '{$path}' was removed\n";
-                break;
+                return $acc . "Property '{$path}' was removed\n";
             case 'unchanged':
                 return $acc;
             case 'changed':
                 $valueBefore = convertValueToPlainString($node['valueBefore']);
                 $valueAfter = convertValueToPlainString($node['valueAfter']);
-                $acc .= "Property '{$path}' was updated. From {$valueBefore} to {$valueAfter}\n";
-                break;
+                return $acc . "Property '{$path}' was updated. From {$valueBefore} to {$valueAfter}\n";
             case 'nested':
                 $children = $node['children'];
                 return makePlain($children, $path, $acc);
             default:
                 throw new \Exception("Unsupported <{$status}> status in diffTree");
         }
-        return $acc;
     }, $result);
     return $formatedTree;
 }

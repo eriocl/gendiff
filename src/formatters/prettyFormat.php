@@ -26,11 +26,7 @@ function makePretty($diffTree, $depth = 0)
                 throw new \Exception("Unsupported <{$status}> status in diffTree");
         }
     }, $diffTree);
-    if ($depth === 0) {
-        return "{\n" . implode("\n", $formatedTree) . "\n}\n";
-    } else {
-        return implode("\n", $formatedTree);
-    }
+    return ($depth === 0) ? "{\n" . implode("\n", $formatedTree) . "\n}\n" : implode("\n", $formatedTree);
 }
 
 function convertValueToPrettyString($value, $key, $depth)

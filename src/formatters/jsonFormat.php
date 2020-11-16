@@ -1,8 +1,8 @@
 <?php
 
-namespace Gendiff\Src\Formatters\Json;
+namespace Gendiff\Formatters\jsonFormat;
 
 function makeJson($diffTree)
 {
-    return json_encode($diffTree, JSON_PRETTY_PRINT) . "\n";
+    return json_encode($diffTree, JSON_PRETTY_PRINT);
 }

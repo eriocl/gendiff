@@ -4,8 +4,8 @@
 
 require_once('autoload.php');
 
-use function Gendiff\src\differ\getData;
-use function Gendiff\src\differ\gendiff;
+use function Gendiff\differ\getData;
+use function Gendiff\differ\gendiff;
 
 $doc = <<<'DOC'
 Generate diff
@@ -23,4 +23,4 @@ Options:
 DOC;
 $args = Docopt::handle($doc, array('version' => '0.1'));
 ['<firstFile>' => $pathToFirstFile, '<secondFile>' => $pathToSecondFile, '--format' => $format] = $args;
-echo genDiff($pathToFirstFile, $pathToSecondFile, $format);
+echo genDiff($pathToFirstFile, $pathToSecondFile, $format) . "\n";

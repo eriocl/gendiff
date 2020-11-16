@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendiff\Src\Formatters\Plain;
+namespace Gendiff\Formatters\plainFormat;
 
 function makePlain($diffTree, $path = [], $result = '')
 {

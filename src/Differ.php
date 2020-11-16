@@ -1,11 +1,11 @@
 <?php
 
-namespace Gendiff\Src\Differ;
+namespace Gendiff\Differ;
 
-use function Gendiff\Src\Parsers\parse;
-use function Gendiff\Src\Formatters\Json\makeJson;
-use function Gendiff\Src\Formatters\Plain\makePlain;
-use function Gendiff\Src\Formatters\Pretty\makePretty;
+use function Gendiff\Parsers\parse;
+use function Gendiff\Formatters\jsonFormat\makeJson;
+use function Gendiff\Formatters\plainFormat\makePlain;
+use function Gendiff\Formatters\prettyFormat\makePretty;
 
 function gendiff($path1, $path2, $format)
 {

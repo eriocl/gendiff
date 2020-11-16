@@ -1,10 +1,10 @@
 <?php
 
-namespace Gendiff\Tests\DifferTest;
+namespace Gendiff\Tests\differTest;
 
 use PHPUnit\Framework\TestCase;
 
-use function Gendiff\src\Differ\gendiff;
+use function Gendiff\Differ\gendiff;
 
 class DifferTest extends TestCase
 {

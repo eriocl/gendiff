@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendiff\Src\Formatters\Pretty;
+namespace Gendiff\Formatters\prettyFormat;
 
 function makePretty($diffTree, $depth = 0)
 {

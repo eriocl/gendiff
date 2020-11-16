@@ -1,10 +1,11 @@
 <?php
 
-namespace Gendiff\Formatters\plainFormat;
+namespace Gendiff\Formatters\PlainFormat;
 
-function makePlain($diffTree, $path = [], $result = [])
+function makePlain($diffTree)
 {
-        $plainData =  array_reduce($diffTree, function ($acc, $node) use ($path) {
+    $iter = function ($diffTree, $path = []) use (&$iter) {
+        $plainData = array_reduce($diffTree, function ($acc, $node) use ($path, $iter) {
             $status = $node['status'];
             $key = $node['key'];
             $path[] = $key;
@@ -28,14 +29,16 @@ function makePlain($diffTree, $path = [], $result = [])
                     break;
                 case 'nested':
                     $children = $node['children'];
-                    $acc[] = makePlain($children, $path, []);
+                    $acc[] = $iter($children, $path);
                     break;
                 default:
                     throw new \Exception("Unsupported <{$status}> status in diffTree");
             }
             return $acc;
-        }, $result);
+        }, []);
         return implode("\n", $plainData);
+    };
+    return $iter($diffTree);
 }
 
 function stringify($value)

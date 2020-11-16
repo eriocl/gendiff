@@ -15,17 +15,21 @@ function makePretty($diffTree)
                 case 'unchanged':
                 case 'added':
                     $value = convertValueToPrettyString($node['value'], $key, $depth + 1);
-                    return "{$tab}  {$statusOperators[$status]} {$value}";
+                    $result =  "{$tab}  {$statusOperators[$status]} {$value}";
+                    break;
                 case 'changed':
                     $valueBefore = convertValueToPrettyString($node['valueBefore'], $key, $depth + 1);
                     $valueAfter = convertValueToPrettyString($node['valueAfter'], $key, $depth + 1);
-                    return "{$tab}  - {$valueBefore}\n" . "{$tab}  + {$valueAfter}";
+                    $result =  "{$tab}  - {$valueBefore}\n" . "{$tab}  + {$valueAfter}";
+                    break;
                 case 'nested':
                     $children = $node['children'];
-                    return "    {$tab}{$key}: {\n" . $iter($children, $depth + 1) . "\n    {$tab}}";
+                    $result =  "    {$tab}{$key}: {\n" . $iter($children, $depth + 1) . "\n    {$tab}}";
+                    break;
                 default:
                     throw new \Exception("Unsupported <{$status}> status in diffTree");
             }
+            return $result;
         }, $diffTree);
         return implode("\n", $formatedTree);
     };

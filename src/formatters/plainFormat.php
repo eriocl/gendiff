@@ -2,9 +2,9 @@
 
 namespace Gendiff\Formatters\plainFormat;
 
-function makePlain($diffTree, $path = [], $result = '')
+function makePlain($diffTree, $path = [], $result = [])
 {
-        return array_reduce($diffTree, function ($acc, $node) use ($path) {
+        $plainData =  array_reduce($diffTree, function ($acc, $node) use ($path) {
             $status = $node['status'];
             $key = $node['key'];
             $path[] = $key;
@@ -14,22 +14,27 @@ function makePlain($diffTree, $path = [], $result = '')
             switch ($status) {
                 case 'added':
                     $value = convertValueToPlainString($node['value']);
-                    return $acc . "Property '{$path}' was added with value: {$value}\n";
+                    $acc[] = "Property '{$path}' was added with value: {$value}";
+                    return $acc;
                 case 'deleted':
-                    return $acc . "Property '{$path}' was removed\n";
+                    $acc[] = "Property '{$path}' was removed";
+                    return $acc;
                 case 'unchanged':
                     return $acc;
                 case 'changed':
                     $valueBefore = convertValueToPlainString($node['valueBefore']);
                     $valueAfter = convertValueToPlainString($node['valueAfter']);
-                    return $acc . "Property '{$path}' was updated. From {$valueBefore} to {$valueAfter}\n";
+                    $acc[] = "Property '{$path}' was updated. From {$valueBefore} to {$valueAfter}";
+                    return $acc;
                 case 'nested':
                     $children = $node['children'];
-                    return makePlain($children, $path, $acc);
+                    $acc[] = makePlain($children, $path, []);
+                    return $acc;
                 default:
                     throw new \Exception("Unsupported <{$status}> status in diffTree");
             }
         }, $result);
+        return implode("\n", $plainData);
 }
 
 function convertValueToPlainString($value)

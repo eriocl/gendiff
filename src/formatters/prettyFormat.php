@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendiff\Formatters\prettyFormat;
+namespace Gendiff\Formatters\PrettyFormat;
 
 function makePretty($diffTree)
 {
@@ -15,21 +15,17 @@ function makePretty($diffTree)
                 case 'unchanged':
                 case 'added':
                     $value = convertValueToPrettyString($node['value'], $key, $depth + 1);
-                    $result =  "{$tab}  {$statusOperators[$status]} {$value}";
-                    break;
+                    return "{$tab}  {$statusOperators[$status]} {$value}";
                 case 'changed':
                     $valueBefore = convertValueToPrettyString($node['valueBefore'], $key, $depth + 1);
                     $valueAfter = convertValueToPrettyString($node['valueAfter'], $key, $depth + 1);
-                    $result =  "{$tab}  - {$valueBefore}\n" . "{$tab}  + {$valueAfter}";
-                    break;
+                    return "{$tab}  - {$valueBefore}\n" . "{$tab}  + {$valueAfter}";
                 case 'nested':
                     $children = $node['children'];
-                    $result =  "    {$tab}{$key}: {\n" . $iter($children, $depth + 1) . "\n    {$tab}}";
-                    break;
+                    return "    {$tab}{$key}: {\n" . $iter($children, $depth + 1) . "\n    {$tab}}";
                 default:
                     throw new \Exception("Unsupported <{$status}> status in diffTree");
             }
-            return $result;
         }, $diffTree);
         return implode("\n", $formatedTree);
     };
